@@ -16,7 +16,7 @@ class formVC: UIViewController {
     @IBOutlet weak var parkingDropdown: DropDown!
     @IBOutlet weak var submitBtn: UIButton!
     
-    let FoodTypes = ["None", "Vegan", "Vagiterian", "Non Vagiterian"]
+    let FoodTypes = ["None", "Vegan", "Vegetarian", "Non Vegetarian"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
