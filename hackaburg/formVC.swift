@@ -16,6 +16,8 @@ class formVC: UIViewController {
     @IBOutlet weak var parkingDropdown: DropDown!
     @IBOutlet weak var submitBtn: UIButton!
     
+    let FoodTypes = ["None", "Vegan", "Veg", "Non Veg"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mealDropdown.arrowColor = UIColor(named: "newYellow")!
@@ -31,7 +33,7 @@ class formVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        mealDropdown.optionArray = ["None", "Vegan", "Veg", "Non Veg"]
+        mealDropdown.optionArray = FoodTypes
         parkingDropdown.optionArray = ["Yes", "No"]
     }
 
@@ -54,6 +56,22 @@ class formVC: UIViewController {
         }
     }
     
+    func foodSubmit() {
+        let url = "https://hackaburg22.herokuapp.com/foods/"
+        let Ftype = mealDropdown.selectedIndex ?? 0
+        let parameters = [ "user_id": "https://hackaburg22.herokuapp.com/users/\(userId)/",
+                           "food_type": "\(Ftype)",
+                            "date": tomorrowDate()]
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { responce in
+            if (responce.error != nil) {
+                print(responce.error!)
+            }else {
+                print(responce.value)
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
     func parkingSubmit() {
         let url = "https://hackaburg22.herokuapp.com/parkings/"
         let parameters = [ "user_id": "https://hackaburg22.herokuapp.com/users/\(userId)/",
@@ -64,7 +82,8 @@ class formVC: UIViewController {
                 print(responce.error!)
             }else {
                 print(responce.value)
-                self.dismiss(animated: true)
+                self.foodSubmit()
+//                self.dismiss(animated: true)
             }
         }
     }
