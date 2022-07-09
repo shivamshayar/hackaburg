@@ -24,5 +24,6 @@ func tomorrowDate() -> String{
     let tomorrow = calendar.date(byAdding: .day, value: 1, to: midnight)!
     let df = DateFormatter()
     df.dateFormat = "yyyy-MM-dd"
-    return df.string(from: tomorrow)
+//    return df.string(from: tomorrow)
+    return currentDate()
 }
